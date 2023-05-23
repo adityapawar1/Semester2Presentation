@@ -1,4 +1,5 @@
-from manim import LinearTransformationScene
+from manim import RIGHT, UP, LinearTransformationScene
+import numpy as np
 
 class IntroScene(LinearTransformationScene):
     def __init__(self):
@@ -9,6 +10,7 @@ class IntroScene(LinearTransformationScene):
         )
 
     def construct(self):
+        self.setup()
         self.add_title("Linear Transformations")
         self.wait(2)
         self.moving_mobjects = []
@@ -25,10 +27,9 @@ class IntroScene(LinearTransformationScene):
         self.wait(2)
         self.moving_mobjects = []
 
-        self.apply_matrix([[5, 2], [3, 2]])
-        self.wait(2)
+        self.apply_nonlinear_transformation(self.func)
         self.moving_mobjects = []
 
-        self.apply_matrix( [[1, 0], [0, 0]])
-        self.wait(2)
-        self.moving_mobjects = []
+    def func(self, point):
+        x, y, z = point
+        return (x)*RIGHT + (y+np.sin(x))*UP
